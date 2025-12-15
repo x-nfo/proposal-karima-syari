@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Ecosystem Proposal - Brand Karima</title>
+    <style>
+        /* --- IMPORTS & VARIABLES --- */
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap');
+
+        :root {
+            /* Palette: Modern Syar'i (Sage, Gold, Cream) */
+            --bg-color: #F7F9F7;
+            --primary-dark: #2C3E36;
+            /* Dark Green */
+            --primary-light: #5F7A6E;
+            /* Sage */
+            --accent-gold: #C5A059;
+            /* Muted Gold */
+            --text-main: #2C3E36;
+            --text-light: #6B7C73;
+            --white: #FFFFFF;
+
+            --slide-transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #e0e5df;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: var(--text-main);
+        }
+
+        /* --- CONTAINER UTAMA --- */
+        .deck-container {
+            width: 100%;
+            height: 100%;
+            max-width: 1280px;
+            /* Aspect Ratio 16:9 approx */
+            max-height: 720px;
+            background-color: var(--bg-color);
+            position: relative;
+            box-shadow: 0 20px 50px rgba(44, 62, 54, 0.15);
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        /* Decorative Background Elements */
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(95, 122, 110, 0.05), rgba(197, 160, 89, 0.05));
+            z-index: 0;
+        }
+
+        .c1 {
+            width: 600px;
+            height: 600px;
+            top: -100px;
+            right: -100px;
+        }
+
+        .c2 {
+            width: 400px;
+            height: 400px;
+            bottom: -50px;
+            left: -50px;
+        }
+
+        /* --- SLIDE STRUCTURE --- */
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 60px 80px;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.95);
+            transition: all var(--slide-transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+            z-index: 2;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 4.5rem;
+            line-height: 1;
+            color: var(--primary-dark);
+        }
+
+        h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Underline effect for H2 */
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-gold);
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .sub-heading {
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.9rem;
+            color: var(--accent-gold);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        /* --- COMPONENTS --- */
+
+        /* 1. Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            height: 100%;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        /* 2. Cards */
+        .card {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            transition: transform 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            border-bottom: 3px solid var(--accent-gold);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--primary-dark);
+        }
+
+        /* 3. Timeline (Timeline 4 Minggu) */
+        .timeline-container {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-top: 60px;
+        }
+
+        /* Garis tengah */
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            top: 25px;
+            left: 50px;
+            right: 50px;
+            height: 2px;
+            background: #ddd;
+            z-index: 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            z-index: 1;
+            width: 23%;
+            text-align: center;
+            opacity: 0;
+            /* For animation */
+            transform: translateY(20px);
+        }
+
+        .timeline-dot {
+            width: 50px;
+            height: 50px;
+            background: var(--white);
+            border: 2px solid var(--accent-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-weight: bold;
+            color: var(--primary-dark);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .timeline-item:hover .timeline-dot {
+            background: var(--accent-gold);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .timeline-content h4 {
+            color: var(--accent-gold);
+            margin-bottom: 5px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+        }
+
+        .timeline-content strong {
+            display: block;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .timeline-content ul {
+            padding-left: 0;
+            list-style: none;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            text-align: left;
+        }
+
+        .timeline-content li::before {
+            content: "•";
+            color: var(--accent-gold);
+            margin-right: 5px;
+        }
+
+        /* 4. Pricing Bundle */
+        .pricing-wrapper {
+            display: flex;
+            gap: 20px;
+            align-items: flex-end;
+            justify-content: center;
+            height: 70%;
+        }
+
+        .pricing-col {
+            flex: 1;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #eee;
+        }
+
+        .pricing-col.featured {
+            flex: 1.2;
+            background: linear-gradient(135deg, #2C3E36 0%, #1a2621 100%);
+            color: white;
+            padding: 40px 30px;
+            box-shadow: 0 20px 40px rgba(44, 62, 54, 0.3);
+            position: relative;
+            border: none;
+        }
+
+        .featured-tag {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent-gold);
+            color: white;
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .price-tag {
+            font-size: 2rem;
+            font-weight: bold;
+            font-family: 'Cormorant Garamond';
+            margin: 15px 0;
+        }
+
+        .pricing-col.featured .price-tag {
+            color: var(--accent-gold);
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            line-height: 2;
+        }
+
+        .feature-list li {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .pricing-col.featured .feature-list li {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ddd;
+        }
+
+        /* --- ANIMATIONS --- */
+        .animate-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .slide.active .animate-up {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-1 {
+            transition-delay: 0.2s;
+        }
+
+        .delay-2 {
+            transition-delay: 0.4s;
+        }
+
+        .delay-3 {
+            transition-delay: 0.6s;
+        }
+
+        .delay-4 {
+            transition-delay: 0.8s;
+        }
+
+        /* --- CONTROLS --- */
+        .controls {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid var(--primary-dark);
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            color: var(--primary-dark);
+        }
+
+        .nav-btn:hover {
+            background: var(--primary-dark);
+            color: var(--accent-gold);
+            border-color: var(--primary-dark);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: default;
+        }
+
+        .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 4px;
+            background: var(--accent-gold);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .watermark {
+            position: absolute;
+            bottom: 30px;
+            left: 40px;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            font-weight: 500;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="deck-container">
+        <div class="bg-circle c1"></div>
+        <div class="bg-circle c2"></div>
+        <div class="watermark">Proposal Web Strategist &bull; Brand Karima</div>
+        <div class="progress-bar" id="progressBar"></div>
+
+        <!-- SLIDE 1: COVER -->
+        <div class="slide active" id="slide-1">
+            <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <div class="sub-heading animate-up">E-Commerce Strategy & Development</div>
+                <h1 class="animate-up delay-1">Digital Ecosystem<br>Development</h1>
+                <div style="width: 100px; height: 2px; background: var(--accent-gold); margin: 30px auto;"
+                    class="animate-up delay-2"></div>
+                <p class="animate-up delay-2" style="font-size: 1.5rem; color: var(--primary-dark);">Mengubah <i>Organic
+                        Traffic</i> Menjadi <i>Loyal Customer</i></p>
+                <div class="animate-up delay-3" style="margin-top: 50px; font-weight: 600;">
+                    Prepared for <span style="color: var(--accent-gold);">Brand Karima</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: EXECUTIVE SUMMARY -->
+        <div class="slide" id="slide-2">
+            <div class="grid-2">
+                <div class="animate-up">
+                    <div class="sub-heading">Executive Summary</div>
+                    <h2>Momentum Emas</h2>
+                    <p>Kami melihat potensi luar biasa pada Brand Karima. Pertumbuhan organik mencapai <b>2.000+
+                            followers</b> membuktikan bahwa produk telah mencapai <i>Product-Market Fit</i>.</p>
+                    <p>Namun, proses penjualan manual (DM/Chat) menjadi "leher botol" yang menghambat pertumbuhan omzet.
+                    </p>
+                </div>
+                <div class="animate-up delay-2">
+                    <div class="card" style="border-left: 5px solid var(--accent-gold);">
+                        <h3 style="margin-top:0;">The Goal</h3>
+                        <p style="margin-bottom:0;">Membangun <b>Digital Ecosystem</b>, di mana Website tidak hanya
+                            berfungsi sebagai katalog, tetapi sebagai <b>Mesin Konversi Otomatis</b> yang terintegrasi
+                            mulus dengan Instagram Karima.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: PROBLEM VS SOLUTION -->
+        <div class="slide" id="slide-3">
+            <div class="sub-heading">Tantangan & Solusi</div>
+            <h2 style="margin-bottom: 40px;">Mengapa Perlu Sistem?</h2>
+
+            <div class="grid-2">
+                <div class="card animate-up delay-1" style="background-color: #fff0f0; border-color: #ffcccc;">
+                    <h3>⚠️ Friction (Masalah)</h3>
+                    <ul style="line-height: 2;">
+                        <li><b>Manual Order:</b> Admin kewalahan cek stok/ongkir.</li>
+                        <li><b>Lost Sales:</b> Pembeli impulsif batal beli karena lama menunggu balasan.</li>
+                        <li><b>No Data Asset:</b> Bergantung penuh pada algoritma Instagram.</li>
+                    </ul>
+                </div>
+                <div class="card animate-up delay-2"
+                    style="background-color: #f0f7f4; border-color: var(--primary-light);">
+                    <h3>✨ Ecosystem (Solusi)</h3>
+                    <ul style="line-height: 2;">
+                        <li><b>Automation:</b> Stok & Ongkir hitung otomatis 24 jam.</li>
+                        <li><b>The Bridge:</b> Integrasi IG Story langsung ke Checkout.</li>
+                        <li><b>Pixel Tracking:</b> Merekam data pengunjung untuk aset iklan.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: PHASE 1 & 2 SCOPE -->
+        <div class="slide" id="slide-4">
+            <div class="sub-heading">Lingkup Kerja</div>
+            <h2>Pondasi & Strategi</h2>
+
+            <div class="grid-2">
+                <div class="animate-up delay-1">
+                    <h3 style="color: var(--accent-gold);">Phase 1: Technical</h3>
+                    <p>Membangun infrastruktur toko online yang kokoh.</p>
+                    <div class="card">
+                        <ul style="padding-left: 20px;">
+                            <li><b>Platform Setup:</b> WordPress + WooCommerce.</li>
+                            <li><b>Syar'i UI/UX:</b> Desain elegan & menutup aurat.</li>
+                            <li><b>Mobile-First:</b> Optimal 100% untuk layar HP.</li>
+                            <li><b>Core Features:</b> Manajemen Stok & Ongkir Kecamatan.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="animate-up delay-2">
+                    <h3 style="color: var(--accent-gold);">Phase 2: Integration</h3>
+                    <p>Fitur konversi untuk memaksimalkan trafik IG.</p>
+                    <div class="card" style="background: white; border: 1px solid var(--accent-gold);">
+                        <ul style="padding-left: 20px;">
+                            <li><b>One-Click Flow:</b> Skip Cart & Guest Checkout.</li>
+                            <li><b>Tracking:</b> Meta Pixel & Google Analytics 4.</li>
+                            <li><b>Smart Address:</b> Auto-complete Kecamatan.</li>
+                            <li><b>IG Integration:</b> Smart Bio Link.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: PHASE 3 MAINTENANCE -->
+        <div class="slide" id="slide-5">
+            <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <div class="sub-heading animate-up">Phase 3</div>
+                <h2 class="animate-up">Maintenance & Security</h2>
+                <p class="animate-up delay-1">Website adalah aset hidup. Kami memastikan "toko" Anda selalu bersih,
+                    aman, dan buka 24 jam.</p>
+
+                <div class="grid-2 animate-up delay-2" style="margin-top: 40px; text-align: left;">
+                    <div class="card">
+                        <h4>🔒 Security & Backups</h4>
+                        <p style="font-size: 0.9rem;">Backup data mingguan ke cloud terpisah & update patch keamanan
+                            rutin.</p>
+                    </div>
+                    <div class="card">
+                        <h4>🚀 Performance Monitor</h4>
+                        <p style="font-size: 0.9rem;">Memantau kecepatan loading dan jaminan uptime server.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: TIMELINE -->
+        <div class="slide" id="slide-6">
+            <div class="sub-heading">Roadmap Pengerjaan</div>
+            <h2>Timeline: 4 Minggu</h2>
+
+            <div class="timeline-container">
+                <!-- Week 1 -->
+                <div class="timeline-item animate-up delay-1">
+                    <div class="timeline-dot">1</div>
+                    <div class="timeline-content">
+                        <h4>WEEK 1</h4>
+                        <strong>Riset & Desain</strong>
+                        <ul>
+                            <li>Audit Konten Instagram</li>
+                            <li>Wireframe UI/UX</li>
+                            <li>Design Mockup ACC</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Week 2 -->
+                <div class="timeline-item animate-up delay-2">
+                    <div class="timeline-dot">2</div>
+                    <div class="timeline-content">
+                        <h4>WEEK 2</h4>
+                        <strong>Development</strong>
+                        <ul>
+                            <li>Instalasi Server</li>
+                            <li>Input Produk (10 SKU)</li>
+                            <li>Setup Ongkir & Payment</li>
+                            <li>Website Beta Live</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Week 3 -->
+                <div class="timeline-item animate-up delay-3">
+                    <div class="timeline-dot">3</div>
+                    <div class="timeline-content">
+                        <h4>WEEK 3</h4>
+                        <strong>Integration</strong>
+                        <ul>
+                            <li>Pasang Meta Pixel</li>
+                            <li>Setup One-Click Checkout</li>
+                            <li>Smart Address Setup</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Week 4 -->
+                <div class="timeline-item animate-up delay-4">
+                    <div class="timeline-dot">4</div>
+                    <div class="timeline-content">
+                        <h4>WEEK 4</h4>
+                        <strong>Testing & Launch</strong>
+                        <ul>
+                            <li>Test Transaksi Real</li>
+                            <li>Training Admin</li>
+                            <li>Serah Terima (Go-Live)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: INVESTMENT -->
+        <div class="slide" id="slide-7">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div class="sub-heading">Penawaran Spesial</div>
+                <h2>Investment Bundle</h2>
+            </div>
+
+            <div class="pricing-wrapper">
+                <!-- Normal -->
+                <div class="pricing-col animate-up delay-1">
+                    <h3>Ala Carte</h3>
+                    <p style="font-size: 0.9rem; margin-bottom: 5px;">Jika diambil terpisah</p>
+                    <ul class="feature-list" style="text-align: left;">
+                        <li>Web Development: <b>Rp 8.000.000</b></li>
+                        <li>Strategic Integration: <b>Rp 3.500.000</b></li>
+                        <li>Maintenance (1 Thn): <b>Rp 3.000.000</b></li>
+                        <li style="border-top: 1px solid #ddd; margin-top: 10px; padding-top: 10px;">Total: <span
+                                style="text-decoration: line-through; color: #999;">Rp 14.500.000</span></li>
+                    </ul>
+                </div>
+
+                <!-- Bundle -->
+                <div class="pricing-col featured animate-up delay-2">
+                    <div class="featured-tag">Best Value for Long Term</div>
+                    <h3>All-in Bundle</h3>
+                    <p style="font-size: 0.9rem; color: #aaa; margin-bottom: 0;">Hemat Rp 2.000.000</p>
+                    <div class="price-tag">Rp 12.500.000</div>
+                    <ul class="feature-list" style="text-align: left;">
+                        <li>✅ Professional Web Development</li>
+                        <li>✅ <b>Pixel & One-Click Checkout</b></li>
+                        <li>✅ <b>1 Tahun Full Maintenance</b></li>
+                        <li>✅ Prioritas Support</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: CLOSING -->
+        <div class="slide" id="slide-8">
+            <div style="text-align: center;">
+                <h1 class="animate-up">Let's Level Up.</h1>
+                <p class="animate-up delay-1" style="max-width: 600px; margin: 20px auto;">
+                    "Investasi ini bukan sekadar untuk membuat website, tapi membangun sistem otomatis yang bekerja 24
+                    jam melayani ribuan follower Brand Karima."
+                </p>
+                <div class="animate-up delay-2" style="margin-top: 50px;">
+                    <button class="nav-btn" style="width: auto; padding: 0 40px; border-radius: 4px; font-weight: 600;"
+                        onclick="location.reload()">Replay Presentation</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- NAVIGATION -->
+        <div class="controls">
+            <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <span id="slideIndicator"
+                style="font-family: 'Cormorant Garamond'; font-size: 1.2rem; min-width: 50px; text-align: center;">1 /
+                8</span>
+            <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 8;
+        const progressBar = document.getElementById('progressBar');
+        const indicator = document.getElementById('slideIndicator');
+
+        function updateProgress() {
+            const percentage = ((currentSlide - 1) / (totalSlides - 1)) * 100;
+            progressBar.style.width = percentage + '%';
+            indicator.innerText = `${currentSlide} / ${totalSlides}`;
+
+            document.getElementById('prevBtn').disabled = (currentSlide === 1);
+            document.getElementById('nextBtn').disabled = (currentSlide === totalSlides);
+        }
+
+        function changeSlide(n) {
+            // Hilangkan class active dari slide sekarang
+            document.getElementById(`slide-${currentSlide}`).classList.remove('active');
+
+            currentSlide += n;
+
+            // Bounds check
+            if (currentSlide < 1) currentSlide = 1;
+            if (currentSlide > totalSlides) currentSlide = totalSlides;
+
+            // Tambahkan class active ke slide baru
+            document.getElementById(`slide-${currentSlide}`).classList.add('active');
+
+            updateProgress();
+        }
+
+        // Keyboard Nav
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                if (currentSlide < totalSlides) changeSlide(1);
+            }
+            if (e.key === 'ArrowLeft') {
+                if (currentSlide > 1) changeSlide(-1);
+            }
+        });
+
+        // Init
+        updateProgress();
+    </script>
+
+</body>
+
+</html>
